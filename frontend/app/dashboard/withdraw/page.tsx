@@ -35,23 +35,29 @@ export default function WithdrawPage() {
   }
 
   return (
-    <div className="max-w-lg space-y-6">
-      <h1 className="text-2xl font-semibold">Retirar</h1>
-      <p className="text-sm text-muted">Kapso envía soles a tu cuenta. Internal deja USDT en wallet custodial WDK.</p>
-      <div className="space-y-4 rounded-2xl border border-border bg-card p-5">
-        <label className="block text-sm">
-          Monto (USDT)
+    <div className="mx-auto max-w-lg space-y-6 rise-in md:mx-0">
+      <div>
+        <h1 className="text-2xl font-extrabold tracking-tight">Retirar</h1>
+        <p className="mt-1 text-sm text-muted">Kapso envía soles a tu cuenta. Internal deja USDT en wallet custodial WDK.</p>
+      </div>
+      <div className="card space-y-5 p-6">
+        <div className="hero-card p-5">
+          <label className="block text-xs font-semibold text-white/70" htmlFor="amount">
+            Monto a retirar (USDT)
+          </label>
           <input
+            id="amount"
             type="number"
-            className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
+            inputMode="decimal"
+            className="mt-1 w-full bg-transparent text-4xl font-extrabold tabular-nums text-white outline-none placeholder:text-white/30"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
-        </label>
-        <label className="block text-sm">
+        </div>
+        <label className="block text-sm font-semibold">
           Método
           <select
-            className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
+            className="field mt-1.5 font-normal"
             value={method}
             onChange={(e) => setMethod(e.target.value as "kapso" | "internal")}
           >
@@ -59,41 +65,28 @@ export default function WithdrawPage() {
             <option value="internal">Wallet interna USDT</option>
           </select>
         </label>
-        <label className="block text-sm">
+        <label className="block text-sm font-semibold">
           Cuenta / destino
-          <input
-            className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
-            value={account}
-            onChange={(e) => setAccount(e.target.value)}
-          />
+          <input className="field mt-1.5 font-normal" value={account} onChange={(e) => setAccount(e.target.value)} />
         </label>
-        <button
-          type="button"
-          disabled={busy}
-          onClick={prepare}
-          className="w-full rounded-xl bg-primary py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-50"
-        >
+        <button type="button" disabled={busy} onClick={prepare} className="btn-primary w-full py-3.5">
           Preparar retiro
         </button>
         {withdrawId && (
-          <div className="space-y-3 border-t border-border pt-4">
-            <p className="text-xs text-muted">ID {withdrawId}</p>
-            <label className="block text-sm">
+          <div className="space-y-4 border-t border-border pt-5">
+            <p className="rounded-full bg-accent px-3 py-1.5 text-center text-xs font-semibold text-accent-foreground">ID {withdrawId}</p>
+            <label className="block text-sm font-semibold">
               Código 2FA
               <input
-                className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
+                className="field mt-1.5 text-center font-mono text-lg tracking-[0.4em]"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 placeholder="123456"
+                inputMode="numeric"
               />
             </label>
-            <button
-              type="button"
-              disabled={busy || code.length < 4}
-              onClick={confirm}
-              className="w-full rounded-xl border border-border py-2.5 text-sm font-semibold"
-            >
-              Confirmar
+            <button type="button" disabled={busy || code.length < 4} onClick={confirm} className="btn-lime w-full py-3.5">
+              Confirmar retiro
             </button>
           </div>
         )}

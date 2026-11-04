@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Header, Footer } from "@/app/components/common/Header";
+import { ChatIcon } from "@/app/components/common/Icons";
 import { login } from "@/app/lib/verify/auth";
 
 export default function LoginPage() {
@@ -33,37 +34,34 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-6 py-16">
-        <h1 className="text-2xl font-semibold">Entrar con WhatsApp</h1>
-        <p className="mt-2 text-sm text-muted">
-          Mismo número que usarías en el bot: si ya creaste un deal por WhatsApp con este número, lo vas a ver acá.
-        </p>
-        <form onSubmit={onSubmit} className="mt-8 space-y-4">
-          <label className="block text-sm">
-            Número
-            <input
-              className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
-              value={whatsapp}
-              onChange={(e) => setWhatsapp(e.target.value)}
-            />
-          </label>
-          <label className="block text-sm">
-            Nombre
-            <input
-              className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
-          {error && <p className="text-sm text-destructive">{error}</p>}
-          <button
-            type="submit"
-            disabled={busy}
-            className="w-full rounded-xl bg-primary py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-50"
-          >
-            {busy ? "Entrando..." : "Continuar"}
-          </button>
-        </form>
+      <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 py-12">
+        <div className="card rise-in p-7 md:p-9">
+          <span className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-lime text-[#0a2a1e]">
+            <ChatIcon width={26} height={26} />
+          </span>
+          <h1 className="text-2xl font-extrabold tracking-tight">Entrar con WhatsApp</h1>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Usa el mismo número del bot: si ya creaste un deal por WhatsApp con este número, lo verás aquí.
+          </p>
+          <form onSubmit={onSubmit} className="mt-7 space-y-4">
+            <label className="block text-sm font-semibold">
+              Número
+              <input className="field mt-1.5 font-normal" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} inputMode="tel" />
+            </label>
+            <label className="block text-sm font-semibold">
+              Nombre
+              <input className="field mt-1.5 font-normal" value={name} onChange={(e) => setName(e.target.value)} />
+            </label>
+            {error && (
+              <p role="alert" className="rounded-2xl bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                {error}
+              </p>
+            )}
+            <button type="submit" disabled={busy} className="btn-primary w-full py-3.5">
+              {busy ? "Entrando…" : "Continuar"}
+            </button>
+          </form>
+        </div>
       </main>
       <Footer />
     </div>

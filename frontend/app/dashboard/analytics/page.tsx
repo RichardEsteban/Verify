@@ -26,8 +26,8 @@ export default function AnalyticsPage() {
   if (!stats) return <Loading />;
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-2xl font-semibold">Analytics</h1>
+    <div className="mx-auto max-w-6xl space-y-8 rise-in">
+      <h1 className="text-2xl font-extrabold tracking-tight">Analytics</h1>
       <div className="grid gap-4 sm:grid-cols-3">
         <StatsCard label="Total" value={formatUsdt(stats.total_earned)} />
         <StatsCard label="Deals" value={String(stats.deals_completed)} />
@@ -38,15 +38,15 @@ export default function AnalyticsPage() {
         <CategoryPie data={cats} />
       </div>
       <section>
-        <h2 className="mb-3 text-lg font-semibold">Timeline</h2>
-        <ul className="space-y-2">
+        <h2 className="mb-3 text-lg font-extrabold">Actividad</h2>
+        <ul className="space-y-2.5">
           {timeline.map((t) => (
-            <li key={t.date + t.event} className="flex justify-between rounded-xl border border-border px-4 py-3 text-sm">
-              <span>
-                {t.event}
-                <span className="ml-2 text-xs text-muted">{formatDate(t.date)}</span>
+            <li key={t.date + t.event} className="card flex items-center justify-between gap-4 !rounded-2xl px-5 py-4 text-sm">
+              <span className="min-w-0">
+                <span className="block truncate font-bold">{t.event}</span>
+                <span className="text-xs text-muted">{formatDate(t.date)}</span>
               </span>
-              <span className="tabular-nums text-muted">{t.amount != null ? `S/${t.amount}` : t.status}</span>
+              <span className="shrink-0 font-extrabold tabular-nums">{t.amount != null ? `S/${t.amount}` : t.status}</span>
             </li>
           ))}
         </ul>

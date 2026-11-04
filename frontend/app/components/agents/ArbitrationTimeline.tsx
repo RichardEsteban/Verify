@@ -48,7 +48,7 @@ export function ArbitrationTimeline({ deal }: { deal: Deal }) {
     <ol className="space-y-3">
       {events.map((e, i) => (
         <li key={`${e.label}-${i}`} className="flex gap-3">
-          <span className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${e.done ? "bg-emerald-400" : "bg-border"}`} />
+          <span className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${e.done ? "bg-success" : "bg-border"}`} />
           <div>
             <p className="text-sm font-medium">{e.label}</p>
             <p className="text-xs text-muted">{e.at ? formatDate(e.at) : "Pendiente"}</p>

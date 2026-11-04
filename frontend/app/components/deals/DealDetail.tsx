@@ -8,8 +8,8 @@ import { AgentAnimation } from "@/app/components/agents/AgentAnimation";
 
 function PhotoTile({ caption, hash }: { caption: string; hash: string }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-accent">
-      <div className="flex h-32 items-center justify-center bg-gradient-to-br from-emerald-900/40 to-sky-900/30 text-xs text-muted">
+    <div className="overflow-hidden rounded-2xl border border-border bg-accent">
+      <div className="flex h-32 items-center justify-center bg-gradient-to-br from-[#0f4a36] to-[#072a1e] text-white/70 text-xs text-muted">
         IPFS {hash.slice(0, 10)}
       </div>
       <p className="px-3 py-2 text-xs">{caption}</p>
@@ -25,12 +25,12 @@ export function DealDetail({ deal }: { deal: Deal }) {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="text-xs text-muted">{deal.id}</p>
-          <h1 className="text-2xl font-semibold">{deal.service}</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight">{deal.service}</h1>
           <p className="mt-1 max-w-2xl text-sm text-muted">{deal.description}</p>
         </div>
         <Link
           href={`/dashboard/deals/${deal.id}/live`}
-          className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+          className="btn-primary"
         >
           Ver agents en vivo
         </Link>
@@ -48,7 +48,7 @@ export function DealDetail({ deal }: { deal: Deal }) {
       </div>
 
       {deal.deal_type === "deposit" && (
-        <div className="rounded-2xl border border-sky-500/30 bg-sky-500/10 p-4 text-sm">
+        <div className="rounded-3xl bg-accent p-5 text-sm leading-relaxed text-accent-foreground">
           🔒 Depósito {formatUsdt(deal.amount_usdt)} en contrato {deal.smart_contract_address}. Check-in{" "}
           {deal.checkin_at ? formatDate(deal.checkin_at) : "—"} · check-out{" "}
           {deal.checkout_at ? formatDate(deal.checkout_at) : "—"}.
@@ -63,12 +63,12 @@ export function DealDetail({ deal }: { deal: Deal }) {
 
       {deal.is_milestone_based && (
         <section>
-          <h2 className="mb-3 text-lg font-semibold">Hitos</h2>
+          <h2 className="mb-3 text-lg font-extrabold">Hitos</h2>
           <div className="space-y-3">
             {deal.milestones.map((m) => {
               const filled = m.status === "completed" ? 100 : m.status === "arbitrating" || m.status === "escrowed" ? 55 : 0;
               return (
-                <div key={m.id} className="rounded-xl border border-border p-4">
+                <div key={m.id} className="card !rounded-2xl p-4">
                   <div className="mb-2 flex justify-between text-sm">
                     <span>
                       Hito {m.order_index}/{deal.milestones.length}: {m.description}
@@ -78,7 +78,7 @@ export function DealDetail({ deal }: { deal: Deal }) {
                     </span>
                   </div>
                   <div className="h-2 overflow-hidden rounded-full bg-accent">
-                    <div className="h-full bg-emerald-400" style={{ width: `${filled}%` }} />
+                    <div className="h-full bg-lime" style={{ width: `${filled}%` }} />
                   </div>
                 </div>
               );
@@ -88,7 +88,7 @@ export function DealDetail({ deal }: { deal: Deal }) {
       )}
 
       <section>
-        <h2 className="mb-3 text-lg font-semibold">Evidencia</h2>
+        <h2 className="mb-3 text-lg font-extrabold">Evidencia</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {deal.photos.map((p) => (
             <PhotoTile key={p.id} caption={p.caption} hash={p.ipfs_hash} />
@@ -98,26 +98,26 @@ export function DealDetail({ deal }: { deal: Deal }) {
 
       {live && (
         <section>
-          <h2 className="mb-3 text-lg font-semibold">Arbitraje en vivo</h2>
+          <h2 className="mb-3 text-lg font-extrabold">Arbitraje en vivo</h2>
           <AgentAnimation dealId={deal.id} />
         </section>
       )}
 
       <section className="grid gap-8 lg:grid-cols-2">
         <div>
-          <h2 className="mb-3 text-lg font-semibold">Timeline</h2>
+          <h2 className="mb-3 text-lg font-extrabold">Timeline</h2>
           <ArbitrationTimeline deal={deal} />
         </div>
         <div>
-          <h2 className="mb-3 text-lg font-semibold">Pagos y payouts</h2>
+          <h2 className="mb-3 text-lg font-extrabold">Pagos y payouts</h2>
           <ul className="space-y-2 text-sm">
             {deal.payments.map((p) => (
-              <li key={p.id} className="rounded-lg border border-border px-3 py-2">
+              <li key={p.id} className="rounded-2xl border border-border bg-card px-4 py-3">
                 Kapso {p.kapso_payment_id} · {formatPen(p.amount_pen)} · {p.status}
               </li>
             ))}
             {deal.payouts.map((p) => (
-              <li key={p.id} className="rounded-lg border border-border px-3 py-2">
+              <li key={p.id} className="rounded-2xl border border-border bg-card px-4 py-3">
                 WDK {p.role} · {p.amount_usdt} USDT · {shortHash(p.tx_hash)}
               </li>
             ))}
@@ -140,9 +140,9 @@ export function DealDetail({ deal }: { deal: Deal }) {
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-4">
+    <div className="card p-5">
       <p className="text-xs text-muted">{label}</p>
-      <p className="mt-1 font-semibold">{value}</p>
+      <p className="mt-1 font-extrabold">{value}</p>
       {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
     </div>
   );

@@ -33,8 +33,8 @@ export function AgentAnimation({ dealId }: { dealId: string }) {
           confidence={state.claude.confidence}
         />
       </div>
-      <div className="rounded-2xl border border-border bg-card p-4">
-        <p className="text-xs uppercase tracking-wide text-muted">Consensus</p>
+      <div className="card p-5">
+        <p className="text-xs eyebrow">Consensus</p>
         <h3 className="mb-2 text-lg font-semibold">
           {state.consensus.verdict ? `Veredicto: ${state.consensus.verdict}` : "Esperando votos"}
         </h3>
@@ -48,7 +48,7 @@ export function AgentAnimation({ dealId }: { dealId: string }) {
           </p>
         )}
         {state.consensus.split && (
-          <p className="mt-1 text-sm text-emerald-400">
+          <p className="mt-1 text-sm text-success">
             Split: anfitrión S/{state.consensus.split.host} / huésped S/{state.consensus.split.guest}
           </p>
         )}

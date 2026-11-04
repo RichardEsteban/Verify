@@ -34,28 +34,34 @@ export default function DealsPage() {
   const slice = deals?.slice((page - 1) * pageSize, page * pageSize) ?? [];
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">Deals</h1>
+    <div className="mx-auto max-w-6xl space-y-6 rise-in">
+      <div>
+        <h1 className="text-2xl font-extrabold tracking-tight">Deals</h1>
+        <p className="text-sm text-muted">Todos tus tratos, del escrow al payout.</p>
+      </div>
       <div className="flex flex-col gap-3 md:flex-row md:items-center">
         <input
           placeholder="Buscar servicio, id o cliente"
-          className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm md:max-w-sm"
+          className="field md:max-w-sm"
           value={q}
           onChange={(e) => {
             setPage(1);
             setQ(e.target.value);
           }}
         />
-        <div className="flex flex-wrap gap-2">
+        <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0">
           {FILTERS.map((f) => (
             <button
               key={f.id}
               type="button"
+              aria-pressed={status === f.id}
               onClick={() => {
                 setPage(1);
                 setStatus(f.id);
               }}
-              className={`rounded-full px-3 py-1 text-xs font-medium ${status === f.id ? "bg-primary text-primary-foreground" : "bg-accent text-muted"}`}
+              className={`whitespace-nowrap rounded-full px-4 py-2 text-xs font-bold transition ${
+                status === f.id ? "bg-primary text-primary-foreground" : "border border-border bg-card text-muted hover:bg-accent"
+              }`}
             >
               {f.label}
             </button>
@@ -63,14 +69,14 @@ export default function DealsPage() {
         </div>
       </div>
       {!deals ? <Loading /> : <DealTable deals={slice} />}
-      <div className="flex items-center justify-end gap-2 text-sm">
-        <button type="button" disabled={page <= 1} className="rounded-lg border border-border px-3 py-1 disabled:opacity-40" onClick={() => setPage((p) => p - 1)}>
+      <div className="flex items-center justify-end gap-3 text-sm">
+        <button type="button" disabled={page <= 1} className="btn-ghost !px-4 !py-2" onClick={() => setPage((p) => p - 1)}>
           Anterior
         </button>
-        <span className="text-muted">
+        <span className="font-semibold tabular-nums text-muted">
           {page}/{pages}
         </span>
-        <button type="button" disabled={page >= pages} className="rounded-lg border border-border px-3 py-1 disabled:opacity-40" onClick={() => setPage((p) => p + 1)}>
+        <button type="button" disabled={page >= pages} className="btn-ghost !px-4 !py-2" onClick={() => setPage((p) => p + 1)}>
           Siguiente
         </button>
       </div>

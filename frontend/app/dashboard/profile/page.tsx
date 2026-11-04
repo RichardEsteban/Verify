@@ -18,25 +18,37 @@ export default function ProfilePage() {
   if (!user) return null;
 
   return (
-    <div className="max-w-lg space-y-6">
-      <h1 className="text-2xl font-semibold">Perfil</h1>
-      <div className="rounded-2xl border border-border bg-card p-5 space-y-4">
-        <p className="text-sm text-muted">WhatsApp {user.whatsapp_number}</p>
-        <p className="text-sm text-muted">Wallet custodial {user.wallet_address || "—"}</p>
-        <p className="text-sm text-muted">
-          Rating {user.rating} · {user.deal_count} deals
-        </p>
-        <label className="block text-sm">
+    <div className="mx-auto max-w-lg space-y-6 rise-in md:mx-0">
+      <h1 className="text-2xl font-extrabold tracking-tight">Perfil</h1>
+      <div className="hero-card flex items-center gap-4 p-6">
+        <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-lime text-2xl font-extrabold text-[#0a2a1e]">
+          {(user.display_name?.trim()[0] ?? "V").toUpperCase()}
+        </span>
+        <div className="min-w-0">
+          <p className="truncate text-xl font-extrabold">{user.display_name}</p>
+          <p className="text-sm text-white/70">
+            ★ {user.rating} · {user.deal_count} deals
+          </p>
+        </div>
+      </div>
+      <div className="card space-y-5 p-6">
+        <dl className="space-y-3 text-sm">
+          <div className="flex justify-between gap-4">
+            <dt className="text-muted">WhatsApp</dt>
+            <dd className="font-semibold">{user.whatsapp_number}</dd>
+          </div>
+          <div className="flex justify-between gap-4">
+            <dt className="text-muted">Wallet custodial</dt>
+            <dd className="truncate font-mono text-xs font-semibold">{user.wallet_address || "—"}</dd>
+          </div>
+        </dl>
+        <label className="block text-sm font-semibold">
           Nombre para mostrar
-          <input
-            className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <input className="field mt-1.5 font-normal" value={name} onChange={(e) => setName(e.target.value)} />
         </label>
         <button
           type="button"
-          className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+          className="btn-primary w-full py-3.5"
           onClick={() => {
             const next = { ...user, display_name: name };
             localStorage.setItem("verify_user", JSON.stringify(next));
@@ -46,7 +58,7 @@ export default function ProfilePage() {
         >
           Guardar
         </button>
-        {saved && <p className="text-sm text-emerald-400">Guardado en este navegador.</p>}
+        {saved && <p className="text-center text-sm font-semibold text-success">Guardado en este navegador.</p>}
       </div>
     </div>
   );

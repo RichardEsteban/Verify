@@ -6,9 +6,9 @@ import { PropsWithChildren } from "react";
 
 export function Providers({ children }: PropsWithChildren) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark">
+    <ThemeProvider attribute="class" defaultTheme="light">
       {children}
-      <Toaster position="bottom-right" richColors />
+      <Toaster position="top-center" richColors />
     </ThemeProvider>
   );
 }

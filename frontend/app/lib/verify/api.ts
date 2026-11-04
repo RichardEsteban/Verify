@@ -14,7 +14,7 @@ function placeholderBuyer(): User {
     id: "",
     whatsapp_number: "",
     wallet_address: "",
-    display_name: "Cliente",
+    display_name: "Por asignar",
     profile_photo_url: "",
     rating: 0,
     deal_count: 0,

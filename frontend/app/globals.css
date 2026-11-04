@@ -3,53 +3,62 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Paleta: verde bosque profundo + lima como acento, fondos menta, tarjetas blancas muy redondeadas. */
 :root {
-  --background: #f4f7f5;
-  --foreground: #0c1f17;
-  --primary: #0f766e;
-  --primary-foreground: #f8fffc;
-  --secondary: #25d366;
-  --secondary-foreground: #052e16;
-  --muted: #4b635a;
-  --muted-foreground: #7a9188;
+  --background: #eef3ef;
+  --foreground: #0a2a1e;
+  --primary: #0c3b2b;
+  --primary-foreground: #ffffff;
+  --secondary: #c6f432;
+  --secondary-foreground: #0a2a1e;
+  --muted: #54695f;
+  --muted-foreground: #8a9b92;
   --card: #ffffff;
-  --card-foreground: #0c1f17;
+  --card-foreground: #0a2a1e;
   --popover: #ffffff;
-  --popover-foreground: #0c1f17;
-  --border: #d7e4de;
-  --border-low: #eaf2ee;
-  --input: #d7e4de;
-  --accent: #e8f3ee;
-  --accent-foreground: #0f766e;
-  --destructive: #ef4444;
+  --popover-foreground: #0a2a1e;
+  --border: #dfe8e2;
+  --border-low: #eaf1ec;
+  --input: #d5e1da;
+  --accent: #e3f0e8;
+  --accent-foreground: #0c3b2b;
+  --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --ring: #0f766e;
-  --radius: 0.75rem;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --ring: #0c3b2b;
+  --success: #0f8a5a;
+  --warning: #a8620a;
+  --lime: #c6f432;
+  --forest: #0c3b2b;
+  --radius: 1rem;
+  --card-shadow: 0 1px 2px rgba(10, 42, 30, 0.04), 0 8px 24px -12px rgba(10, 42, 30, 0.12);
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 .dark {
-  --background: #07140f;
-  --foreground: #e8f5ef;
-  --primary: #2dd4bf;
-  --primary-foreground: #042f2e;
-  --secondary: #25d366;
-  --secondary-foreground: #052e16;
-  --muted: #9cb5ab;
+  --background: #06140f;
+  --foreground: #e9f5ee;
+  --primary: #c6f432;
+  --primary-foreground: #072a1e;
+  --secondary: #c6f432;
+  --secondary-foreground: #072a1e;
+  --muted: #9db8ab;
   --muted-foreground: #6b857b;
-  --card: #0d1f19;
-  --card-foreground: #e8f5ef;
-  --popover: #0d1f19;
-  --popover-foreground: #e8f5ef;
-  --border: #1e3a32;
-  --border-low: rgba(30, 58, 50, 0.5);
-  --input: #1e3a32;
-  --accent: #143029;
-  --accent-foreground: #5eead4;
-  --destructive: #ef4444;
+  --card: #0d211a;
+  --card-foreground: #e9f5ee;
+  --popover: #0d211a;
+  --popover-foreground: #e9f5ee;
+  --border: #1c3a2f;
+  --border-low: rgba(28, 58, 47, 0.5);
+  --input: #22453a;
+  --accent: #143328;
+  --accent-foreground: #c6f432;
+  --destructive: #f87171;
   --destructive-foreground: #ffffff;
-  --ring: #2dd4bf;
+  --ring: #c6f432;
+  --success: #6ee7a8;
+  --warning: #fbbf24;
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
 }
 
 @theme inline {
@@ -73,11 +82,18 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-lime: var(--lime);
+  --color-forest: var(--forest);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 16px);
+  --shadow-card: var(--card-shadow);
 }
 
 @layer base {
@@ -88,5 +104,87 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--lime);
+    color: #0a2a1e;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-3xl border border-border bg-card shadow-card;
+  }
+
+  .field {
+    @apply w-full rounded-2xl border border-input bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition;
+  }
+  .field:focus {
+    @apply border-primary;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--lime) 35%, transparent);
+    outline: none;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 bg-primary text-primary-foreground hover:opacity-90;
+  }
+  .btn-lime {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 bg-lime text-[#0a2a1e] hover:brightness-95;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 border border-border bg-card text-foreground hover:bg-accent;
+  }
+
+  /* Tarjeta de saldo: siempre verde bosque, sin importar el tema. */
+  .hero-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2rem;
+    color: #fff;
+    background:
+      radial-gradient(120% 90% at 100% 0%, rgba(198, 244, 50, 0.16) 0%, transparent 55%),
+      linear-gradient(160deg, #0f4a36 0%, #0a3326 55%, #072a1e 100%);
+    box-shadow: 0 24px 48px -24px rgba(7, 42, 30, 0.7);
+  }
+
+  .chip-ok {
+    @apply bg-success/15 text-success;
+  }
+  .chip-warn {
+    @apply bg-warning/15 text-warning;
+  }
+  .chip-muted {
+    @apply bg-accent text-muted;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise-in {
+  animation: rise-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in {
+    animation: none;
   }
 }

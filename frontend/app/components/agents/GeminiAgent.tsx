@@ -14,14 +14,14 @@ type Props = {
 
 export function AgentCard({ name, progress, status, eta, decision, confidence, accent = "gemini" }: Props) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-4">
+    <div className="card p-5">
       <div className="mb-3 flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-wide text-muted">{accent === "gemini" ? "Agent 1" : "Agent 2"}</p>
+          <p className="text-xs eyebrow">{accent === "gemini" ? "Agent 1" : "Agent 2"}</p>
           <h3 className="text-lg font-semibold">{name}</h3>
         </div>
         {decision ? (
-          <span className="rounded-full bg-emerald-500/15 px-2 py-1 text-xs font-medium text-emerald-400">
+          <span className="rounded-full chip-ok px-2.5 py-1 text-xs font-bold">
             {decision} {confidence != null ? `· ${confidence}%` : ""}
           </span>
         ) : (
@@ -30,7 +30,7 @@ export function AgentCard({ name, progress, status, eta, decision, confidence, a
       </div>
       <div className="mb-2 h-2 overflow-hidden rounded-full bg-accent">
         <div
-          className={cn("h-full rounded-full transition-all duration-300", accent === "gemini" ? "bg-sky-400" : "bg-violet-400")}
+          className={cn("h-full rounded-full transition-all duration-300", accent === "gemini" ? "bg-success" : "bg-lime")}
           style={{ width: `${progress}%` }}
         />
       </div>
