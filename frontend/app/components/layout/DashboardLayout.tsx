@@ -7,6 +7,7 @@ import { getUser, isAuthenticated, logout } from "@/app/lib/verify/auth";
 import { cn } from "@/app/lib/verify/utils";
 import type { User } from "@/app/lib/verify/types";
 import { BellIcon, ChartIcon, DealsIcon, HomeIcon, LogoMark, LogoutIcon, UserIcon, WalletIcon } from "@/app/components/common/Icons";
+import { useBackendStatus } from "@/app/lib/verify/useBackendStatus";
 import { ThemeToggle } from "@/app/components/common/ThemeToggle";
 
 const NAV = [
@@ -34,6 +35,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [ready, setReady] = useState(false);
+  const backend = useBackendStatus();
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -113,9 +115,20 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="hidden items-center gap-2 rounded-full bg-accent px-3.5 py-2 text-xs font-semibold text-accent-foreground sm:inline-flex">
-              <span className="h-2 w-2 rounded-full bg-success" />
-              Conectado al backend
+            <span
+              role="status"
+              className={cn(
+                "hidden items-center gap-2 rounded-full px-3.5 py-2 text-xs font-semibold sm:inline-flex",
+                backend === "offline" ? "bg-destructive/10 text-destructive" : "bg-accent text-accent-foreground",
+              )}
+            >
+              <span
+                className={cn(
+                  "h-2 w-2 rounded-full",
+                  backend === "online" ? "bg-success" : backend === "offline" ? "bg-destructive" : "animate-pulse bg-muted-foreground",
+                )}
+              />
+              {backend === "online" ? "Backend conectado" : backend === "offline" ? "Backend sin conexión" : "Conectando…"}
             </span>
             <ThemeToggle />
             <button

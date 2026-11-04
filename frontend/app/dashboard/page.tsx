@@ -124,12 +124,31 @@ export default function DashboardPage() {
   const [deals, setDeals] = useState<Deal[]>([]);
   const [stats, setStats] = useState<AnalyticsStats | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
+    setFailed(false);
     setUser(getUser());
-    fetchMyDeals().then(setDeals);
-    fetchStats().then(setStats);
-  }, []);
+    Promise.all([fetchMyDeals(), fetchStats()])
+      .then(([d, st]) => {
+        setDeals(d);
+        setStats(st);
+      })
+      .catch(() => setFailed(true));
+  }, [attempt]);
+
+  if (failed) {
+    return (
+      <div className="card mx-auto mt-10 max-w-md p-8 text-center">
+        <p className="text-lg font-extrabold">No pudimos conectar con el backend</p>
+        <p className="mt-2 text-sm text-muted">Revisa que esté corriendo y vuelve a intentarlo.</p>
+        <button type="button" onClick={() => setAttempt((n) => n + 1)} className="btn-primary mt-5">
+          Reintentar
+        </button>
+      </div>
+    );
+  }
 
   if (!stats) return <Loading />;
 
