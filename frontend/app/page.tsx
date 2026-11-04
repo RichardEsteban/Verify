@@ -45,7 +45,7 @@ function PhoneMockup() {
           <p className="mx-auto w-fit rounded-full bg-white/70 px-3 py-0.5 text-[10px] font-semibold text-[#54695f]">Hoy</p>
           <div className="ml-auto w-fit max-w-[80%] rounded-2xl rounded-tr-md bg-[#c6f432] px-3.5 py-2 font-medium">/crear_deal</div>
           <div className="w-fit max-w-[85%] rounded-2xl rounded-tl-md bg-white px-3.5 py-2 shadow-sm">
-            Trato creado: <b>Gasfitería · S/ 450</b>
+            Trato creado: <b>Diseño de logo · S/ 450</b>
             <br />
             <span className="text-[#0f8a5a]">Esperando pago del cliente…</span>
           </div>
@@ -53,9 +53,9 @@ function PhoneMockup() {
             <span className="mb-1 flex items-center gap-1.5 text-[11px] font-bold text-[#0f8a5a]">
               <CheckIcon width={14} height={14} strokeWidth={2.4} /> Pago en escrow
             </span>
-            Sube tus fotos del trabajo para liberar el pago.
+            Sube la evidencia del trabajo para liberar el pago.
           </div>
-          <div className="ml-auto w-fit rounded-2xl rounded-tr-md bg-[#c6f432] px-3.5 py-2 font-medium">📷 4 fotos enviadas</div>
+          <div className="ml-auto w-fit rounded-2xl rounded-tr-md bg-[#c6f432] px-3.5 py-2 font-medium">📷 4 archivos enviados</div>
         </div>
         <div className="mx-3 mb-4 rounded-2xl bg-[#0c3b2b] p-3.5 text-white">
           <p className="text-[10px] uppercase tracking-widest text-white/60">Payout liberado</p>
@@ -84,7 +84,7 @@ export default function LandingPage() {
               <span className="rounded-2xl bg-lime px-2 text-[#0a2a1e]">Sin wallet.</span> Con arbitraje por IA.
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-              Garantía P2P para el mercado informal. El plomero, el taxista o la constructora pagan y cobran desde el chat; el
+              Garantía P2P para la economía informal y digital. El freelancer, el emprendedor o el contratista pagan y cobran desde el chat; el
               dashboard muestra en vivo a Gemini, Claude y PayBot resolviendo el escrow.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
