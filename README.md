@@ -55,7 +55,6 @@ Nobody needs to know anything about crypto. It all happens in a chat.
 |---|---|
 | **Chat with the bot** (looks like WhatsApp, nothing to install) | https://verify-bot-21i6.onrender.com/demo |
 | **Dashboard** | https://frontend-gilt-pi-76.vercel.app |
-| Server behind the scenes (API) | Being set up on Render, link coming soon |
 
 How to test the chat:
 1. Open the chat link and tap **/crear_deal**.
