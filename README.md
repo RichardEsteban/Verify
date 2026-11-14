@@ -53,7 +53,7 @@ The user never sees a blockchain or needs a crypto wallet.
 | Bot test chat | `/demo` on the bot server (see "Run it locally") |
 | API docs (Swagger) | `/docs` on the backend server |
 
-> **Note:** the backend and the bot were hosted on a free Railway trial that has ended, so they are being moved to a new host. Until the links are updated here, run the project locally. It takes about five minutes.
+> **Note:** the backend and the bot were hosted on a free Railway trial that has ended, so they are being moved to [Render](https://render.com) (see [Deploy on Render](#deploy-on-render)). Until the links are updated here, run the project locally. It takes about five minutes.
 
 The bot runs in **simulated mode** (no real WhatsApp Business account needed). The `/demo` page is a web chat that looks like WhatsApp and talks to the real bot, so you can test the whole flow without installing anything on your phone.
 
@@ -132,6 +132,18 @@ npm run dev
 Open http://localhost:3000 and log in with the same phone number you use in the chat (for example `+51999999999`).
 
 **Real WDK payouts (optional).** Add `WDK_WALLET_NAME=verify`, `WDK_PASSPHRASE=verify-demo-2026`, `WDK_NETWORK=sepolia` and `WDK_TOKEN=musdt` to `backend/.env`, and follow [`backend/README.md`](backend/README.md).
+
+---
+
+## Deploy on Render
+
+The repo includes a [`render.yaml`](render.yaml) blueprint that creates the backend and the bot on Render's free plan.
+
+1. On render.com, go to **New → Blueprint** and pick this repo.
+2. Render asks for the values marked as secret: `WDK_PASSPHRASE` and `WDK_SEED` (backend) and `BACKEND_URL` (bot).
+3. After the first deploy, copy the backend URL into the bot's `BACKEND_URL`, and into `NEXT_PUBLIC_API_URL` in Vercel.
+
+Free services sleep after 15 minutes without traffic, so the first request can take about a minute.
 
 ---
 

@@ -1,0 +1,45 @@
+# Render Blueprint: crea el backend y el bot en el plan gratis.
+# En Render: New > Blueprint > elige este repo. Los valores marcados con
+# `sync: false` los pide Render al crear el servicio (no se guardan en el repo).
+services:
+  - type: web
+    name: verify-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://frontend-gilt-pi-76.vercel.app,http://localhost:3000
+      - key: WDK_WALLET_NAME
+        value: verify
+      - key: WDK_NETWORK
+        value: sepolia
+      - key: WDK_TOKEN
+        value: musdt
+      - key: WDK_TOKEN_ADDRESS
+        value: "0x859e861cfA14f8e5aA5765Fe3941670FB41E5A8A"
+      - key: WDK_PASSPHRASE
+        sync: false
+      - key: WDK_SEED
+        sync: false
+
+  - type: web
+    name: verify-bot
+    runtime: node
+    plan: free
+    rootDir: bot
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # URL del backend de arriba, ej. https://verify-backend.onrender.com
+      - key: BACKEND_URL
+        sync: false
